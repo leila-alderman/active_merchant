@@ -4,7 +4,7 @@ module ActiveMerchant #:nodoc:
       self.live_url = self.test_url = 'https://api.mercadopago.com/v1'
 
       self.supported_countries = ['AR', 'BR', 'CL', 'CO', 'MX', 'PE', 'UY']
-      self.supported_cardtypes = [:visa, :master, :american_express, :elo]
+      self.supported_cardtypes = [:visa, :master, :american_express, :elo, :cabal]
 
       self.homepage_url = 'https://www.mercadopago.com/'
       self.display_name = 'Mercado Pago'
@@ -54,7 +54,7 @@ module ActiveMerchant #:nodoc:
 
       def verify(credit_card, options={})
         MultiResponse.run(:use_first_response) do |r|
-          r.process { authorize(100, credit_card, options) }
+          r.process { authorize(500, credit_card, options) }
           r.process(:ignore_result) { void(r.authorization, options) }
         end
       end
